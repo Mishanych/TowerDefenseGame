@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78364d9bb094f743b563efd8befa31a, type: 3}
+  m_Name: Magician
+  m_EditorClassIdentifier: 
+  _towerName: Magician
+  _towerImage: {fileID: 21300000, guid: b1f8b4fa34a2fd24b96e19c616229218, type: 3}
+  _buildPrice: 100
+  _range: 2.2
+  _shootInterval: 0.77
+  _minDamage: 16
+  _maxDamage: 22
+  BuildOptionData:
+    TowerIcon: {fileID: 21300000, guid: fb0137561587b394a9a7372ad6828e0f, type: 3}
+    BuildPriceText: 100

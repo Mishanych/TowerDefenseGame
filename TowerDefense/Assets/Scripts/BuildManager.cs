@@ -1,66 +1,58 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _buildPlace;
-    [SerializeField] private List<GameObject> _listOfBuildOptions;
+    [SerializeField] public GameObject BuildPlace;
+    [SerializeField] public GameObject Tower;
+    [SerializeField] private GameObject _buildMenu;
+    [SerializeField] private GameObject _extraMenu;
 
-    private GameObject _currentBuilding;
-    private GameObject _building;
+    public List<GameObject> ListOfBuildOptions;
+    [HideInInspector] public TowerData CurrentTowerData;
+
+    public bool TowerIsBuilded = false;
 
 
-    public void CheckConfirmButtonState(BuildOptionProperties buildOptionProperties)
+    public void CheckBuildOptionIcons(BuildOptionSettings currentOption)
     {
-        _buildPlace.SetActive(false);
-        ShowBuilding(buildOptionProperties);
-
-        if (!buildOptionProperties.ConfirmIcon.activeSelf)
+        for (int i = 0; i < ListOfBuildOptions.Count; i++)
         {
-            ShowOrHideConfirmButton(buildOptionProperties, true);
-
-            for (int i = 0; i < _listOfBuildOptions.Count; i++)
+            var buildOptionSettings = ListOfBuildOptions[i].GetComponent<BuildOptionSettings>();
+            if(buildOptionSettings != currentOption)
             {
-                var buildOP = _listOfBuildOptions[i].GetComponent<BuildOptionProperties>();
-                if (buildOP != buildOptionProperties)
-                {
-                    ShowOrHideConfirmButton(buildOP, false);
-                }
+                buildOptionSettings.SetBuildOptions();
             }
         }
-        else
-        {
-            _listOfBuildOptions[0].transform.parent.gameObject.SetActive(false);
-            //money--
-        }
     }
 
-
-    private void ShowOrHideConfirmButton(BuildOptionProperties buildOptionProperties, bool show)
+    public void OpenExtraMenu()
     {
-        foreach (Transform childTransform in buildOptionProperties.gameObject.GetComponentInChildren<Transform>())
+        if (!_buildMenu.activeSelf)
         {
-            childTransform.gameObject.SetActive(!show);
+            _extraMenu.SetActive(true);
+            var tmPro = _extraMenu.GetComponentInChildren<TextMeshProUGUI>();
+            tmPro.text = (CurrentTowerData.BuildPrice / 2).ToString();
         }
-
-        buildOptionProperties.ConfirmIcon.SetActive(show);
     }
 
-
-    private void ShowBuilding(BuildOptionProperties buildOptionProperties)
+    public void SellTower()
     {
-        if(_building != null)
+        if (TowerIsBuilded)
         {
-            Destroy(_building);
+            Tower.GetComponent<Image>().enabled = false;
+            _extraMenu.SetActive(false);
+            BuildPlace.SetActive(true);
+            foreach (var option in ListOfBuildOptions)
+            {
+                option.GetComponent<BuildOptionSettings>().SetBuildOptions();
+            }
+            TowerIsBuilded = false;
+            //money++
         }
-        _currentBuilding = Resources.Load("BuildingPrefabs/" + buildOptionProperties.NameOfBuilding) as GameObject;
-
-        var localTransform = _currentBuilding.transform;
-        _building = Instantiate(_currentBuilding, _currentBuilding.transform.position, Quaternion.identity, gameObject.transform);
-
-        _building.transform.SetParent(gameObject.transform);
-        _building.transform.localPosition = localTransform.position;
-        _building.transform.localScale = localTransform.localScale;
     }
+    
 }
