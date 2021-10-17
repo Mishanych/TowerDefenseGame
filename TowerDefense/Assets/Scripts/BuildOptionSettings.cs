@@ -17,15 +17,24 @@ public class BuildOptionSettings : MonoBehaviour
     private Image _currentBuildIcon;
 
 
-    private void Awake()
+    private void OnEnable()
     {
         _currentBuildIcon = _buildIcon.GetComponent<Image>();
         SetBuildOptions();
         
     }
-
+    
     public void SetBuildOptions()
     {
+        var btn = this.GetComponent<UIGameButton>();
+        btn.EnableButton();
+        if (GameManager.Instance.MoneyAmount < _towerData.BuildPrice)
+        {
+            btn.SwitchEnable();
+        }
+
+
+
         if (!_buildPrice.activeSelf)
         {
             _buildPrice.SetActive(true);
@@ -46,6 +55,7 @@ public class BuildOptionSettings : MonoBehaviour
 
         var tmPro = _buildPrice.GetComponent<TextMeshProUGUI>();
         tmPro.text = _towerData.BuildOptionData.BuildPriceText;
+
     }
 
     public void ChooseOrSetUpBuilding()
@@ -60,7 +70,11 @@ public class BuildOptionSettings : MonoBehaviour
         {
             this.transform.parent.gameObject.SetActive(false);
             _buildManager.TowerIsBuilded = true;
-            //money--
+            GameManager.Instance.MoneyAmount -= _towerData.BuildPrice;
+            Debug.LogWarning(GameManager.Instance.MoneyAmount);
+
+            var tmPro = _buildManager.ExtraMenu.GetComponentInChildren<TextMeshProUGUI>();
+            tmPro.text = _buildManager.CurrentTowerData.BuildPrice.ToString();
         }
     }
 }
