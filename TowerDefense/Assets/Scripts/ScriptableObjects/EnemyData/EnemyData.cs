@@ -10,6 +10,8 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float _movingSpeed;
     [SerializeField] private float _minDamage;
     [SerializeField] private float _maxDamage;
+    [SerializeField] private int _minDeathReward;
+    [SerializeField] private int _maxDeathReward;
 
 
     public string EnemyName
@@ -36,7 +38,7 @@ public class EnemyData : ScriptableObject
         }
     }
 
-    public double MinDamage
+    public float MinDamage
     {
         get
         {
@@ -44,11 +46,27 @@ public class EnemyData : ScriptableObject
         }
     }
 
-    public double MaxDamage
+    public float MaxDamage
     {
         get
         {
             return _maxDamage;
+        }
+    }
+
+    public int MinDeathReward
+    {
+        get
+        {
+            return _minDeathReward;
+        }
+    }
+
+    public int MaxDeathReward
+    {
+        get
+        {
+            return _maxDeathReward;
         }
     }
 }

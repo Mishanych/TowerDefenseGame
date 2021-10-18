@@ -15,5 +15,7 @@ MonoBehaviour:
   _enemyName: Swordsman
   _healthAmount: 50
   _movingSpeed: 0.5
-  _minDamage: 0
-  _maxDamage: 0
+  _minDamage: 7
+  _maxDamage: 15
+  _minDeathReward: 5
+  _maxDeathReward: 15

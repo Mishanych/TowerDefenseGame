@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int MoneyAmount;
     [HideInInspector] public int EnemyWaves;
     [HideInInspector] public bool GameOver;
+    [HideInInspector] public int NumberOfCurrWave;
 
 
     
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         _healthAmountUI.text = HealthAmount.ToString();
         _moneyAmountUI.text = MoneyAmount.ToString();
-        _wavesAmountUI.text = "Waves 0/" + EnemyWaves.ToString();
+        _wavesAmountUI.text = "Waves " + NumberOfCurrWave.ToString() + "/" + EnemyWaves.ToString();
     }
 
 

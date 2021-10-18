@@ -46,7 +46,6 @@ public class BuildManager : MonoBehaviour
         if (_currCooldown <= 0)
             return true;
         return false;
-
     }
 
     public void CheckBuildOptionIcons(BuildOptionSettings currentOption)
@@ -98,7 +97,10 @@ public class BuildManager : MonoBehaviour
         if (_nearestEnemy != null && shortestDistance <= CurrentTowerData.Range)
         {
             _target = _nearestEnemy.transform;
-            ShootAtTarget();
+
+            var enemy = _nearestEnemy.GetComponent<Enemy>();
+            if(enemy != null && !enemy.IsDead)
+                ShootAtTarget();
         }
         else
         {
