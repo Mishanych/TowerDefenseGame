@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public PlayerData PlayerData;
+    [SerializeField] private TextMeshProUGUI _healthAmountUI;
+    [SerializeField] private TextMeshProUGUI _moneyAmountUI;
+    [SerializeField] private TextMeshProUGUI _wavesAmountUI;
     [SerializeField] private List<GameObject> _listOfBuildMenus;
     [SerializeField] private List<GameObject> _listOfExtraMenus;
 
@@ -35,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         GameOver = false;
         SetupPlayerProperties();
+        DisplayPlayerProperties();
     }
 
 
@@ -44,6 +48,12 @@ public class GameManager : MonoBehaviour
         MoneyAmount = PlayerData.MoneyAmount;
         EnemyWaves = PlayerData.EnemyWaves;
     }
+    private void DisplayPlayerProperties()
+    {
+        _healthAmountUI.text = HealthAmount.ToString();
+        _moneyAmountUI.text = MoneyAmount.ToString();
+        _wavesAmountUI.text = "0/" + EnemyWaves.ToString();
+    }
 
 
     private void Update()
@@ -52,6 +62,7 @@ public class GameManager : MonoBehaviour
         {
             GameOver = true;
         }
+        DisplayPlayerProperties();
     }
 
     public void OpenBuildMenu(GameObject buildMenu)

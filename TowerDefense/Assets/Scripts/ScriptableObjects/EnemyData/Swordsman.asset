@@ -15,6 +15,6 @@ MonoBehaviour:
   _enemyName: Swordsman
   _enemyImage: {fileID: 0}
   _healthAmount: 50
-  _movingSpeed: 1
+  _movingSpeed: 2
   _minDamage: 0
   _maxDamage: 0

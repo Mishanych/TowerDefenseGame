@@ -19,7 +19,35 @@ public class BuildManager : MonoBehaviour
 
     private Transform _target;
     private GameObject _nearestEnemy;
-    private GameObject _ownProjectile;
+    private GameObject _ownAbility;
+    private float _currCooldown;
+
+    private void Start()
+    {
+
+    }
+
+    private void Update()
+    {
+        if (CurrentTowerData != null)
+        {
+            _currCooldown = CurrentTowerData.ShootInterval;
+            if (AbleToShoot())
+                UpdateTarget();
+
+            if (_currCooldown > 0)
+                _currCooldown -= Time.deltaTime;
+        }
+
+    }
+
+    private bool AbleToShoot()
+    {
+        if (_currCooldown <= 0)
+            return true;
+        return false;
+
+    }
 
     public void CheckBuildOptionIcons(BuildOptionSettings currentOption)
     {
@@ -50,12 +78,7 @@ public class BuildManager : MonoBehaviour
             }
         }
     }
-    private void Update()
-    {
-        UpdateTarget();
-        ShootAtTarget();
-
-    }
+    
 
     private void UpdateTarget()
     {
@@ -75,19 +98,32 @@ public class BuildManager : MonoBehaviour
         if (_nearestEnemy != null && shortestDistance <= CurrentTowerData.Range)
         {
             _target = _nearestEnemy.transform;
+            ShootAtTarget();
         }
         else
         {
             _target = null;
         }
+
     }
 
     private void ShootAtTarget()
     {
+        _ownAbility = CurrentTowerData.Ability;
         if(_target != null)
         {
-            //var projectile = Instantiate()
+            var projectile = Instantiate(_ownAbility);
+            projectile.transform.SetParent(transform, false);
+
+            var mover = projectile.GetComponent<ProjectileMover>();
+
+            if (mover != null)
+            {
+                mover.SetTarget(_target);
+                mover.SetDamage(CurrentTowerData.MinDamage, CurrentTowerData.MaxDamage);
+            }
+
+            _currCooldown = CurrentTowerData.ShootInterval;
         }
-    }
-    
+    }    
 }

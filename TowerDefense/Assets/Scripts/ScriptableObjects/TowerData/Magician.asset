@@ -19,6 +19,9 @@ MonoBehaviour:
   _shootInterval: 0.77
   _minDamage: 16
   _maxDamage: 22
+  _canShoot: 1
+  _ability: {fileID: 5914059320743218289, guid: 298d0b636ef4710459fa3b6d2f1b7472,
+    type: 3}
   BuildOptionData:
     TowerIcon: {fileID: 21300000, guid: fb0137561587b394a9a7372ad6828e0f, type: 3}
     BuildPriceText: 100

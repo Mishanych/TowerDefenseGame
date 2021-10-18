@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMover : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private Animator _animator;
@@ -25,10 +25,13 @@ public class EnemyMover : MonoBehaviour
 
     private void Update()
     {
+        _healthbarBehaviour.SetHealth(_currentHealthAmount, _enemyData.HealthAmount);
+        CheckIsAlive();
+
         Vector3 dir = _target.position - transform.position;
         //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
+        
         transform.Translate(dir.normalized * _speed * Time.deltaTime, Space.World);
 
 
@@ -54,5 +57,14 @@ public class EnemyMover : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _currentHealthAmount -= damage;
+    }
+
+    private void CheckIsAlive()
+    {
+        if (_currentHealthAmount <= 0)
+        {
+            Destroy(gameObject);
+            //GameManager.Instance.MoneyAmount ++
+        }
     }
 }

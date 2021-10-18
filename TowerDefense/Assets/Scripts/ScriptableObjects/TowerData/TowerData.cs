@@ -21,10 +21,12 @@ public class TowerData : ScriptableObject
     [SerializeField] private string _towerName;
     [SerializeField] private Sprite _towerImage;
     [SerializeField] private int _buildPrice;
-    [SerializeField] private double _range;
-    [SerializeField] private double _shootInterval;
+    [SerializeField] private float _range;
+    [SerializeField] private float _shootInterval;
     [SerializeField] private int _minDamage;
     [SerializeField] private int _maxDamage;
+    [SerializeField] private bool _canShoot;
+    [SerializeField] private GameObject _ability;
     public BuildOptionData BuildOptionData;
 
 
@@ -52,7 +54,7 @@ public class TowerData : ScriptableObject
         }
     }
 
-    public double Range
+    public float Range
     {
         get
         {
@@ -60,7 +62,7 @@ public class TowerData : ScriptableObject
         }
     }
 
-    public double ShootInterval
+    public float ShootInterval
     {
         get
         {
@@ -81,6 +83,22 @@ public class TowerData : ScriptableObject
         get
         {
             return _maxDamage;
+        }
+    }
+
+    public bool CanShoot
+    {
+        get
+        {
+            return _canShoot;
+        }
+    }
+
+    public GameObject Ability
+    {
+        get
+        {
+            return _ability;
         }
     }
 }
