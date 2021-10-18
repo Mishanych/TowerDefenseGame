@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Swordsman
   m_EditorClassIdentifier: 
   _enemyName: Swordsman
-  _enemyImage: {fileID: 0}
   _healthAmount: 50
-  _movingSpeed: 2
+  _movingSpeed: 0.5
   _minDamage: 0
   _maxDamage: 0

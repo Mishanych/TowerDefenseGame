@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         _healthAmountUI.text = HealthAmount.ToString();
         _moneyAmountUI.text = MoneyAmount.ToString();
-        _wavesAmountUI.text = "0/" + EnemyWaves.ToString();
+        _wavesAmountUI.text = "Waves 0/" + EnemyWaves.ToString();
     }
 
 

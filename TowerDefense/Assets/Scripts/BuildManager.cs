@@ -24,14 +24,14 @@ public class BuildManager : MonoBehaviour
 
     private void Start()
     {
-
+        _currCooldown = CurrentTowerData.ShootInterval;
     }
 
     private void Update()
     {
         if (CurrentTowerData != null)
         {
-            _currCooldown = CurrentTowerData.ShootInterval;
+            
             if (AbleToShoot())
                 UpdateTarget();
 

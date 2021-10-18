@@ -6,7 +6,6 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     [SerializeField] private string _enemyName;
-    [SerializeField] private Sprite _enemyImage;
     [SerializeField] private int _healthAmount;
     [SerializeField] private float _movingSpeed;
     [SerializeField] private float _minDamage;
@@ -18,14 +17,6 @@ public class EnemyData : ScriptableObject
         get
         {
             return _enemyName;
-        }
-    }
-
-    public Sprite EnemyImage
-    {
-        get
-        {
-            return _enemyImage;
         }
     }
 

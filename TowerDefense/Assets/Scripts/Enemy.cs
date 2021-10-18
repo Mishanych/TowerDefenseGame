@@ -58,12 +58,14 @@ public class Enemy : MonoBehaviour
     {
         _currentHealthAmount -= damage;
     }
-
+    
     private void CheckIsAlive()
     {
         if (_currentHealthAmount <= 0)
         {
-            Destroy(gameObject);
+            _animator.SetInteger("state", 0);
+            _animator.SetInteger("state", 3);
+            Destroy(gameObject, 0.5f);
             //GameManager.Instance.MoneyAmount ++
         }
     }
