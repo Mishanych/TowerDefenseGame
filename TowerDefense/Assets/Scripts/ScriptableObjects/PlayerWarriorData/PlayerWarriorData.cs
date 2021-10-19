@@ -2,17 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWarriorData : MonoBehaviour
+[CreateAssetMenu(fileName = "New PlayerWarriorData", menuName = "PlayerWarrior Data", order = 55)]
+public class PlayerWarriorData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private string _warriorName;
+    [SerializeField] private int _healthAmount;
+    [SerializeField] private float _movingSpeed;
+    [SerializeField] private float _minDamage;
+    [SerializeField] private float _maxDamage;
+
+
+    public string WarriorName
     {
-        
+        get
+        {
+            return _warriorName;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public int HealthAmount
     {
-        
+        get
+        {
+            return _healthAmount;
+        }
+    }
+
+    public float MovingSpeed
+    {
+        get
+        {
+            return _movingSpeed;
+        }
+    }
+
+    public float MinDamage
+    {
+        get
+        {
+            return _minDamage;
+        }
+    }
+
+    public float MaxDamage
+    {
+        get
+        {
+            return _maxDamage;
+        }
     }
 }

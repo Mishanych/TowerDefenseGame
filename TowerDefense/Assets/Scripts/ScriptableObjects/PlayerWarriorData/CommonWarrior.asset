@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4124a55f7126d3b4daf659a174c70c5e, type: 3}
+  m_Name: CommonWarrior
+  m_EditorClassIdentifier: 
+  _warriorName: Common Warrior
+  _healthAmount: 50
+  _movingSpeed: 0.5
+  _minDamage: 5
+  _maxDamage: 9
