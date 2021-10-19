@@ -195,6 +195,7 @@ MonoBehaviour:
   _enemyData: {fileID: 11400000, guid: d4e5126be20f8084396eff3f9900c5b2, type: 2}
   _animator: {fileID: 2912516183368908676}
   _healthbarBehaviour: {fileID: 2912516182967845291}
+  IsDead: 0
 --- !u!95 &2912516183368908676
 Animator:
   serializedVersion: 3

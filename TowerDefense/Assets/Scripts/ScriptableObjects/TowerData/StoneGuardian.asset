@@ -16,7 +16,7 @@ MonoBehaviour:
   _towerImage: {fileID: 21300000, guid: aca0896b7a41cd14f9647111b66d8371, type: 3}
   _buildPrice: 120
   _range: 2.8
-  _shootInterval: 0.36
+  _shootInterval: 0.5
   _minDamage: 15
   _maxDamage: 26
   _canShoot: 1

@@ -31,7 +31,7 @@ public class Wave : MonoBehaviour
 
     private void Update()
     {
-        if(AbleToStartNewWave() && _numberOfCurrWave - 1 != _amountOfWaves)
+        if(AbleToStartNewWave() && _numberOfCurrWave - 1 != _amountOfWaves && _numberOfCurrWave != 1)
         {
             SetupNewWave();
             StartWave();
@@ -73,8 +73,7 @@ public class Wave : MonoBehaviour
         {
             _background.SetActive(false);
             SkullIcon.gameObject.SetActive(false);
-            Debug.LogWarning("ATTACK!");
-            Debug.LogWarning(_numberOfCurrWave);
+            Debug.LogWarning("Wave: " + _numberOfCurrWave);
 
 
             for (int i = 0; i < _currWave.ListOfEnemiesInWaveInfo.Count; i++)

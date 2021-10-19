@@ -21,22 +21,47 @@ public class BuildManager : MonoBehaviour
     private GameObject _nearestEnemy;
     private GameObject _ownAbility;
     private float _currCooldown;
-
-    private void Start()
-    {
-        _currCooldown = CurrentTowerData.ShootInterval;
-    }
+    private bool _abilityUsed = false;
 
     private void Update()
     {
         if (CurrentTowerData != null)
         {
-            
-            if (AbleToShoot())
-                UpdateTarget();
+            //if (CurrentTowerData.CanShoot)
+            //{
+                if (AbleToShoot())
+                    UpdateTarget();
 
-            if (_currCooldown > 0)
-                _currCooldown -= Time.deltaTime;
+                if (_currCooldown > 0)
+                    _currCooldown -= Time.deltaTime;
+            //}
+            //else
+            //{
+            //    //if (!_abilityUsed && TowerIsBuilded)
+            //    //{
+            //    //    _ownAbility = CurrentTowerData.Ability;
+            //    //    var ability = Instantiate(_ownAbility, transform);
+            //    //    ability.transform.SetParent(transform, false);
+            //    //    _abilityUsed = true;
+            //    //    var garrisone = ability.GetComponent<WarriorGarrison>();
+            //    //    var warriors = garrisone.AllWarriors;
+            //    //    foreach(var warrior in warriors)
+            //    //    {
+            //    //        warrior.GetComponent<Warrior>()?.KillTarget(_target);
+            //    //    }
+            //    //}
+            //}
+            if (!CurrentTowerData.CanShoot)
+            {
+                if (!_abilityUsed && TowerIsBuilded)
+                {
+                    _ownAbility = CurrentTowerData.Ability;
+                    var ability = Instantiate(_ownAbility, transform);
+                    ability.transform.SetParent(transform, false);
+                    _abilityUsed = true;
+                    
+                }
+            }
         }
 
     }
@@ -94,13 +119,28 @@ public class BuildManager : MonoBehaviour
             }
         }
 
-        if (_nearestEnemy != null && shortestDistance <= CurrentTowerData.Range)
+        if (_nearestEnemy != null && shortestDistance <= CurrentTowerData.Range) 
         {
             _target = _nearestEnemy.transform;
 
             var enemy = _nearestEnemy.GetComponent<Enemy>();
-            if(enemy != null && !enemy.IsDead)
-                ShootAtTarget();
+
+            if (enemy != null && !enemy.IsDead)
+            {
+                if (CurrentTowerData.CanShoot)
+                {
+                    ShootAtTarget();
+                }
+                else
+                {
+                    var garrisone = GetComponentInChildren<WarriorGarrison>();
+                    var warriors = garrisone.AllWarriors;
+                    foreach (var warrior in warriors)
+                    {
+                        warrior.GetComponent<Warrior>()?.FindTarget(_target);
+                    }
+                }
+            }
         }
         else
         {

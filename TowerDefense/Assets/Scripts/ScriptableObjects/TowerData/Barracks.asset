@@ -15,12 +15,13 @@ MonoBehaviour:
   _towerName: Barracks
   _towerImage: {fileID: 21300000, guid: 5c90d2115b835b34fa20cc9407474a77, type: 3}
   _buildPrice: 70
-  _range: 0
-  _shootInterval: 1
+  _range: 3
+  _shootInterval: 0.77
   _minDamage: 6
   _maxDamage: 9
   _canShoot: 0
-  _ability: {fileID: 0}
+  _ability: {fileID: 7596700615992891296, guid: f493ddfbea0952a4a96e4e1ccbc4ad24,
+    type: 3}
   BuildOptionData:
     TowerIcon: {fileID: 21300000, guid: bbe422af15383824bb9e6a02cc9bc979, type: 3}
     BuildPriceText: 70

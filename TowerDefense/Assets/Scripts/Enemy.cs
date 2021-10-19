@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class Enemy : MonoBehaviour
     private float _speed;
     private int _waypointIndex = 0;
     private Transform _target;
+    private bool _defenderIsNear = false;
     
 
     private void Start()
@@ -30,13 +30,13 @@ public class Enemy : MonoBehaviour
     {
         _healthbarBehaviour.SetHealth(_currentHealthAmount, _enemyData.HealthAmount);
 
-        if(!IsDead)
+        if (!IsDead)
             CheckIsAlive();
 
         Vector3 dir = _target.position - transform.position;
         //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        if (!IsDead)
+        if (!IsDead && !_defenderIsNear)
         {
             transform.Translate(dir.normalized * _speed * Time.deltaTime, Space.World);
 
@@ -73,11 +73,46 @@ public class Enemy : MonoBehaviour
             _animator.SetBool("isDying", true);
             _healthbarBehaviour.gameObject.SetActive(false);
 
-            var rnd = new Random();
+            var rnd = new System.Random();
             var reward = rnd.Next(_enemyData.MinDeathReward, _enemyData.MaxDeathReward + 1);
             GameManager.Instance.MoneyAmount += reward;
 
             Destroy(gameObject, 1f);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Defender")
+        {
+            Debug.LogWarning("DEFENDER");
+            _defenderIsNear = true;
+            
+            var warrior = collision.gameObject.GetComponent<Warrior>();
+            _animator.SetBool("isFighting", true);
+            while (!IsDead && !warrior.IsDead)
+            {
+                var damage = Random.Range(_enemyData.MinDamage, _enemyData.MaxDamage + 1f);
+                warrior.TakeDamage((int)damage);
+            }
+            _defenderIsNear = false;
+        }
+    }
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.tag == "Defender")
+        {
+            Debug.LogWarning("DEFENDER");
+            _defenderIsNear = true;
+
+            var warrior = collision.gameObject.GetComponent<Warrior>();
+            _animator.SetBool("isFighting", true);
+            while (!IsDead && !warrior.IsDead)
+            {
+                var damage = Random.Range(_enemyData.MinDamage, _enemyData.MaxDamage + 1f);
+                warrior.TakeDamage((int)damage);
+            }
+            _defenderIsNear = false;
         }
     }
 }

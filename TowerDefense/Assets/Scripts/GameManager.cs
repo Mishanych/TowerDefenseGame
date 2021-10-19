@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +11,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _healthAmountUI;
     [SerializeField] private TextMeshProUGUI _moneyAmountUI;
     [SerializeField] private TextMeshProUGUI _wavesAmountUI;
+    [SerializeField] private GameObject _pauseScreen;
+    [SerializeField] private GameObject _gameEndScreen;
+    [SerializeField] private GameObject _gameOverText;
+    [SerializeField] private GameObject _gameWonText;
     [SerializeField] private List<GameObject> _listOfBuildMenus;
     [SerializeField] private List<GameObject> _listOfExtraMenus;
 
@@ -17,10 +22,13 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int MoneyAmount;
     [HideInInspector] public int EnemyWaves;
     [HideInInspector] public bool GameOver;
+    [HideInInspector] public bool PlayerWon;
     [HideInInspector] public int NumberOfCurrWave;
+    [HideInInspector] public List<GameObject> AllEnemies;
+    [HideInInspector] public List<GameObject> AllDefenders;
 
 
-    
+
     public static GameManager _instance;
     public static GameManager Instance
     {
@@ -38,8 +46,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GameOver = false;
+        PlayerWon = false;
         SetupPlayerProperties();
         DisplayPlayerProperties();
+
     }
 
 
@@ -59,9 +69,19 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(HealthAmount <= 0)
+        if (HealthAmount <= 0 && !GameOver)
         {
             GameOver = true;
+            OpenGameEndScreen();
+        }
+        if(NumberOfCurrWave == EnemyWaves && !PlayerWon && !GameOver)
+        {
+            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if(enemies.Length == 0)
+            {
+                PlayerWon = true;
+                OpenGameEndScreen();
+            }
         }
         DisplayPlayerProperties();
     }
@@ -96,10 +116,6 @@ public class GameManager : MonoBehaviour
                 _listOfBuildMenus[i].SetActive(false);
                 var buildManager = _listOfBuildMenus[i].transform.parent.gameObject.GetComponent<BuildManager>();
                 buildManager.Tower.GetComponent<Image>().enabled = false;
-                //foreach (var option in buildManager.ListOfBuildOptions)
-                //{
-                //    option.GetComponent<BuildOptionSettings>().SetBuildOptions();
-                //}
                 buildManager.BuildPlace.SetActive(true);
             }
         }
@@ -130,5 +146,72 @@ public class GameManager : MonoBehaviour
         }
 
         extraMenu.SetActive(true);
+    }
+
+    public void OpenGameEndScreen()
+    {
+        _gameEndScreen.SetActive(true);
+        if(GameOver)
+        {
+            _gameOverText.SetActive(true);
+            StartCoroutine(TextFlickering(_gameOverText));
+        }
+
+        if(PlayerWon)
+        {
+            _gameWonText.SetActive(true);
+            StartCoroutine(TextFlickering(_gameWonText));
+        }
+
+    }
+
+    private IEnumerator TextFlickering(GameObject text)
+    {
+        text.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        text.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        text.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        text.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        text.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        text.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+        GoMainMenu();
+    }
+
+
+    public void PauseGame()
+    {
+        _pauseScreen.SetActive(true);
+        Time.timeScale = 0f;
+        Debug.LogWarning("Game is paused");
+    }
+
+    public void ResumeGame()
+    {
+        _pauseScreen.SetActive(false);
+        Time.timeScale = 1f;
+        Debug.LogWarning("Game is resumed");
+    }
+
+    public void RestartGame()
+    {
+        _pauseScreen.SetActive(false);
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
+        Debug.LogWarning("Game is restarted");
+    }
+
+    public void GoMainMenu()
+    {
+        _pauseScreen.SetActive(false);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Debug.LogWarning("Go to the main menu");
     }
 }

@@ -17,7 +17,7 @@ public class BuildOptionSettings : MonoBehaviour
     private Image _currentBuildIcon;
 
 
-    private void OnEnable()
+    private void Awake()
     {
         _currentBuildIcon = _buildIcon.GetComponent<Image>();
         SetBuildOptions();

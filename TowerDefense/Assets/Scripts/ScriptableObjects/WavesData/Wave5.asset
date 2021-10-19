@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ee5a4c94142d546a54b4103d9ece39, type: 3}
   m_Name: Wave5
   m_EditorClassIdentifier: 
-  _waveDuration: 5
+  _waveDuration: 7
   _listOfEnemiesInWaveInfo:
   - Enemy: {fileID: 2912516183368908703, guid: 88effd344db07274e9df2a06481ce4ff, type: 3}
-    NumberOfEnemies: 1
+    NumberOfEnemies: 8
     IndexOfSpawnPoint: 0

@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\BuildManager.cs" />
     <Compile Include="Assets\Scripts\BuildOptionSettings.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\GameManageButtons.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HealthbarBehaviour.cs" />
     <Compile Include="Assets\Scripts\ProjectileMover.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\WavesData\WaveData.cs" />
     <Compile Include="Assets\Scripts\Tower.cs" />
     <Compile Include="Assets\Scripts\UIGameButton.cs" />
+    <Compile Include="Assets\Scripts\Warrior.cs" />
+    <Compile Include="Assets\Scripts\WarriorGarrison.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />
     <Compile Include="Assets\Scripts\Waypoints.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
